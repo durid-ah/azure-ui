@@ -1,6 +1,18 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
+// import typescriptLogo from './typescript.svg'
 import { setupCounter } from './counter'
+
+const authDialog = document.getElementById('auth-dialog') as HTMLDialogElement;
+const launchAuthDialogButton = document.getElementById('open-auth-dlg');
+
+launchAuthDialogButton?.addEventListener('click', () => {
+  authDialog.show();
+});
+
+authDialog.addEventListener('close', () => {
+  console.log(`Dialog`, authDialog.returnValue);
+});
+
 
 // document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 //   <div>
@@ -20,4 +32,4 @@ import { setupCounter } from './counter'
 //   </div>
 // `
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+// setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
