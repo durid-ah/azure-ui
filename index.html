@@ -8,10 +8,15 @@
   </head>
   <body>
     <div class="navbar bg-neutral text-neutral-content">
-      <span class="normal-case text-xl">Azure UI</span>
+      <div class="navbar-start">
+        <span class="normal-case text-xl">Azure UI</span>
+      </div>
+      
+      <div class="navbar-end">
+        <button id="open-auth-dlg" class="btn btn-outline btn-primary">Set Auth</button>
+      </div>
     </div>
 
-    <button id="open-auth-dlg" class="btn btn-primary">Set Auth</button>
 
     <dialog id="auth-dialog">
       <div class="card card-compact w-96 bg-base-100 shadow-xl">
