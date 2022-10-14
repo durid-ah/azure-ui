@@ -18,14 +18,14 @@
         <div class="card-body">
           <h2 class="card-title">Set Auth</h2>
           <p>Set your Azure Auth Keys</p>
-          <form method="dialog">
-            <input type="text" placeholder="Client Id" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
-            <input type="text" placeholder="Client Secret" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
-            <input type="text" placeholder="Tenant Id" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
-            <input type="text" placeholder="Subscription Id" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
+          <form id="auth-form" method="dialog">
+            <input type="password" id="auth-form-client-id" placeholder="Client Id" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
+            <input type="password" id="auth-form-client-secret" placeholder="Client Secret" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
+            <input type="password" id="auth-form-tenant-id" placeholder="Tenant Id" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
+            <input type="password" id="auth-form-subscription-id" placeholder="Subscription Id" class="mb-2 input input-bordered w-full input-sm max-w-xs" />
 
             <div class="card-actions justify-end mt-2">
-              <button class="btn btn-sm btn-primary">Ok</button>
+              <button id="auth-form-submit" class="btn btn-sm btn-primary" value="default">Ok</button>
             </div>
           </form>
         </div>
