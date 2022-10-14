@@ -6,6 +6,7 @@ const clientId = document.getElementById("auth-form-client-id") as HTMLInputElem
 const clientSecret  = document.getElementById("auth-form-client-secret") as HTMLInputElement;
 const tenantId  = document.getElementById("auth-form-tenant-id") as HTMLInputElement;
 const subscriptionId = document.getElementById("auth-form-subscription-id") as HTMLInputElement;
+
 const submitButton = document.getElementById("auth-form-submit") as HTMLButtonElement;
 
 submitButton.addEventListener('click', () => {
