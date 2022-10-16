@@ -5,21 +5,28 @@ import { Server, Socket } from "socket.io";
 import { from, fromEvent, map, Observable, of, switchMap } from "rxjs";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
-type Client = Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
+type Client = Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
+type WsServer = Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>;
 
+function listenToConnectionEvent(event: string) {
+   return (socketObj: {io: WsServer, client: Client}) => 
+      fromEvent(socketObj.client, event)
+         .pipe(map(msg => ({io: socketObj.io, msg}))) 
+}
 
 const app = express();
 const server = http.createServer(app);
 const io$ = of(new Server(server));
 
-app.get('/', (req, res) => {
+app.get('/', (_, res) => {
    const filePath = path.join(__dirname, 'index.html');
    res.sendFile(filePath);
 });
 
 const connection$ = io$.pipe(
    switchMap(io => {
-      const connectObservable = fromEvent(io, 'connection') as Observable<Client>;
+      const connectObservable = 
+         fromEvent(io, 'connection') as Observable<Client>;
 
       return connectObservable
          .pipe(map(client => ({io, client})));
@@ -27,11 +34,8 @@ const connection$ = io$.pipe(
 );
 
 connection$.pipe(
-   switchMap(({io, client}) => 
-      fromEvent(client, 'test')
-         .pipe(
-            map(msg => ({io, msg}))))
-).subscribe(({io, msg}) => io.emit('test', msg))
+   switchMap(listenToConnectionEvent('test'))
+).subscribe(({ msg }) => console.log(msg));
 
 connection$.subscribe(({ client }) => {
    console.log('connected: ', client.id)

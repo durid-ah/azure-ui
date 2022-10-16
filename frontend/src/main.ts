@@ -1,5 +1,7 @@
 import './style.css'
 import './auth-dialog'
+import './socket_client'
+
 // import typescriptLogo from './typescript.svg'
 // import { setupCounter } from './counter'
 
