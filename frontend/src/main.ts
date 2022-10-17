@@ -1,6 +1,13 @@
 import './style.css'
 import './auth-dialog'
-import './socket_client'
+// import './socket_client'
+
+
+const testCard = document.getElementById('test-card');
+
+
+console.log(testCard?.offsetLeft)
+console.log(testCard?.offsetTop)
 
 // import typescriptLogo from './typescript.svg'
 // import { setupCounter } from './counter'
