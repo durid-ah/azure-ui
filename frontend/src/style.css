@@ -2,15 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* #test-card {
-   position: absolute;
-} */
-
 .task-group {
    display: flex;
    flex-direction: column;
    justify-content: space-between;
    align-items: stretch;
+   gap: 1rem;
 }
 
 .group-line {
@@ -19,6 +16,20 @@
    border-color: hsl(var(--nc));
    width: 100%;
    max-width: 20rem;
+   min-width: 1rem;
+}
+
+.select-right, .select-left {
+   border-style: solid;
+   border-color: hsl(var(--nc));
+}
+
+.select-left {
+   border-left-width: 2px;
+}
+
+.select-right {
+   border-right-width: 2px;
 }
 
 
