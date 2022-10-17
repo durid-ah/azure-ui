@@ -13,10 +13,15 @@
    align-items: stretch;
 }
 
-.connector {
-   border: solid;
-   width: 34px;
+.group-line {
+   border-top-width: 2px;
+   border-style: solid;
+   border-color: hsl(var(--nc));
+   width: 100%;
+   max-width: 20rem;
 }
+
+
 
 /* TODO: SELECTED GROUP */
 /*    - Right select */
