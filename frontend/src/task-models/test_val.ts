@@ -1,4 +1,4 @@
-import { AsyncResourceGroup, Resource, SequentialResourceGroup } from "./task_group.model";
+import { AsyncResourceGroup, Resource, SequentialResourceGroup } from ".";
 
 
 const TEST_TASKS = new SequentialResourceGroup([

@@ -1,7 +1,7 @@
 import './style.css'
 import './auth-dialog'
 import TEST_TASKS from './task-models/test_val';
-import { AsyncResourceGroup, Resource, ResourceType } from './task-models/task_group.model';
+import { AsyncResourceGroup, Resource, ResourceType } from './task-models';
 // import './socket_client'
 
 function createResourceCard(resource: Resource): HTMLDivElement {
