@@ -1,13 +1,63 @@
 import './style.css'
 import './auth-dialog'
+import TEST_TASKS from './task-models/test_val';
+import { AsyncResourceGroup, Resource, ResourceType } from './task-models/task_group.model';
 // import './socket_client'
 
+function createResourceCard(resource: Resource): HTMLDivElement {
+   const cardElement = document.createElement('div');
+   cardElement.classList.add('px-2');
+   cardElement.innerHTML = `
+      <div id="test-card-1" class="card card-compact bg-base-100 w-56 flex flex-row justify-center">
+      </div>
+   `;
 
-const testCard = document.getElementById('test-card');
+   const nameElement = document.createElement('div');
+   nameElement.innerText = resource.name;
+   const innerCardElement = cardElement.querySelector('.card')!;
+   innerCardElement.appendChild(nameElement);
 
+   return cardElement;
+}
 
-console.log(testCard?.offsetLeft)
-console.log(testCard?.offsetTop)
+function createAsyncResourceGroup(resourceGroup: AsyncResourceGroup): HTMLDivElement {
+   const group = document.createElement('div');
+   group.classList.add('task-group','select-right');
+
+   resourceGroup.tasks.forEach(item => {
+      if (item.itemType === ResourceType.Resource) {
+         const el = createResourceCard(item);
+         group.appendChild(el);
+      }
+   });
+   
+   return group;
+}
+
+function createGroupLine(): HTMLDivElement {
+   const el = document.createElement('div');
+   el.classList.add('group-line');
+   return el;
+}
+
+const mainView =  document.querySelector<HTMLDivElement>('#main-view')!;
+
+const lastItem = TEST_TASKS.tasks.length - 1;
+TEST_TASKS.tasks.forEach((item, idx) => {
+   if (item.itemType === ResourceType.Resource) {
+      const el = createResourceCard(item);
+      mainView.appendChild(el);
+   } else if (item.itemType === ResourceType.AsyncGroup) {
+      const el = createAsyncResourceGroup(item);
+      mainView.appendChild(el);
+   }
+
+   if (idx !== lastItem) {
+      mainView.appendChild(createGroupLine());
+   }
+
+});
+
 
 // import typescriptLogo from './typescript.svg'
 // import { setupCounter } from './counter'
