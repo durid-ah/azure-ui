@@ -5,14 +5,14 @@ export enum ResourceType {
    SequentialGroup
 }
 
-type ResourceItem = Resource | AsyncResourceGroup | SequentialResourceGroup;
+export type ResourceItem = Resource | AsyncResourceGroup | SequentialResourceGroup;
 
 export class Resource {
    readonly itemType = ResourceType.Resource
    
-   public name: String;
+   public name: string;
 
-   constructor(name: String) {
+   constructor(name: string) {
       this.name = name;
    }
 }
