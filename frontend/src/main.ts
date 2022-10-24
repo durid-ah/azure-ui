@@ -4,11 +4,27 @@ import TEST_TASKS from './task-models/test_val';
 import { AsyncResourceGroup, Resource, ResourceType } from './task-models';
 // import './socket_client'
 
+function group_dragover_handler(ev: Event) {
+   ev.preventDefault();
+   (ev as DragEvent).dataTransfer!.dropEffect = "move";
+}
+
+function group_drop_handler(ev: Event) {
+   ev.preventDefault();
+   const dropEv = ev as DragEvent;
+   const data = dropEv.dataTransfer?.getData('text/html');
+}
+
+function group_dropend_handler(ev: Event) {
+   ev.preventDefault();
+   const dropEv = ev as DragEvent;
+   dropEv.dataTransfer!.dropEffect = "move";
+}
+
 function card_dragstart_handler(ev: DragEvent) {
-   const targetEl = (ev.target as HTMLDivElement)
+   const targetEl = (ev.target as HTMLDivElement);
    ev.dataTransfer?.setData('text/html', targetEl.outerHTML)
    ev.dataTransfer!.dropEffect = "move";
-   console.log('DRAG: ', targetEl.dataset.name);
 }
 
 function createResourceCard(resource: Resource): HTMLDivElement {
@@ -51,8 +67,12 @@ function createGroupLine(): HTMLDivElement {
    return el;
 }
 
-const mainView =  document.querySelector<HTMLDivElement>('#main-view')!;
 
+
+
+// main view
+const mainView =  document.querySelector<HTMLDivElement>('#main-view')!;
+// loop
 const lastItem = TEST_TASKS.tasks.length - 1;
 TEST_TASKS.tasks.forEach((item, idx) => {
    let el: HTMLDivElement;
@@ -78,6 +98,16 @@ TEST_TASKS.tasks.forEach((item, idx) => {
       el.classList.add('select-left');
    }
 });
+
+const groups = document.getElementsByClassName('task-group')
+for (let idx = 0; idx < groups.length; idx++) {
+   const element = groups[idx];
+   console.log(element);
+   element.addEventListener("dragenter", ev => ev.preventDefault());
+   element.addEventListener("drop", group_drop_handler);
+   element.addEventListener("dragover", group_dragover_handler);
+   element.addEventListener("dropend", group_dropend_handler);
+}
 
 
 // import typescriptLogo from './typescript.svg'
