@@ -2,6 +2,7 @@ import './style.css'
 import './auth-dialog'
 import TEST_TASKS from './task-models/test_val';
 import { AsyncResourceGroup, Resource, ResourceType } from './task-models';
+import createResourceCard from './card-element';
 // import './socket_client'
 
 function group_dragover_handler(ev: Event) {
@@ -19,32 +20,6 @@ function group_dropend_handler(ev: Event) {
    ev.preventDefault();
    const dropEv = ev as DragEvent;
    dropEv.dataTransfer!.dropEffect = "move";
-}
-
-function card_dragstart_handler(ev: DragEvent) {
-   const targetEl = (ev.target as HTMLDivElement);
-   ev.dataTransfer?.setData('text/html', targetEl.outerHTML)
-   ev.dataTransfer!.dropEffect = "move";
-}
-
-function createResourceCard(resource: Resource): HTMLDivElement {
-   const cardElement = document.createElement('div');
-   cardElement.classList.add('px-2');
-   cardElement.setAttribute('draggable', 'true');
-   cardElement.dataset.name = resource.name;
-   cardElement.innerHTML = `
-      <div id="test-card-1" class="card card-compact bg-base-100 w-56 flex flex-row justify-center">
-      </div>
-   `;
-
-   cardElement.addEventListener('dragstart', card_dragstart_handler)
-
-   const nameElement = document.createElement('div');
-   nameElement.innerText = resource.name;
-   const innerCardElement = cardElement.querySelector('.card')!;
-   innerCardElement.appendChild(nameElement);
-
-   return cardElement;
 }
 
 function createAsyncResourceGroup(resourceGroup: AsyncResourceGroup): HTMLDivElement {
@@ -66,9 +41,6 @@ function createGroupLine(): HTMLDivElement {
    el.classList.add('group-line');
    return el;
 }
-
-
-
 
 // main view
 const mainView =  document.querySelector<HTMLDivElement>('#main-view')!;
