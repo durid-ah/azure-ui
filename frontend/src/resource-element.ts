@@ -6,10 +6,14 @@ function dragOver_handler(ev: Event) {
    (ev as DragEvent).dataTransfer!.dropEffect = "move";
 }
 
-function drop_handler(ev: Event) {
-   ev.preventDefault();
+function drop_handler(this: HTMLDivElement, ev: Event) {
    const dropEv = ev as DragEvent;
-   const data = dropEv.dataTransfer?.getData('text/html');
+   dropEv.preventDefault();
+   const id = dropEv.dataTransfer?.getData('text/plain');
+   const droppedCard = document.getElementById(id!)!;
+
+   if (this.id !== droppedCard?.parentElement?.id)
+      this.appendChild(droppedCard);
 }
 
 function dropEnd_handler(ev: Event) {
@@ -21,6 +25,7 @@ function dropEnd_handler(ev: Event) {
 export default function createAsyncResourceGroup(resourceGroup: AsyncResourceGroup): HTMLDivElement {
    const group = document.createElement('div');
    group.classList.add('task-group');
+   group.id = resourceGroup.id.toString();
 
    group.addEventListener("dragenter", ev => ev.preventDefault());
    group.addEventListener("drop", drop_handler);
