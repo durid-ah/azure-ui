@@ -40,7 +40,7 @@ function drop_handler(this: HTMLDivElement, ev: Event) {
    if (this.id !== droppedCard?.parentElement?.id) {
       // TODO: Update task in state
       this.appendChild(droppedCard);
-   } 
+   }
 
    // If the group that the card was moved out of is empty remove group
    const cardCount = movedFromGroup?.getElementsByClassName('task-card').length;
@@ -48,11 +48,12 @@ function drop_handler(this: HTMLDivElement, ev: Event) {
       cleanUpResourceGroup(movedFromGroup);
    }
 
+   // Move ghost card to the bottom
    const ghostCardEL = this.getElementsByClassName('ghost-card')[0];
    this.appendChild(ghostCardEL);
 }
 
-function emptyCard() {
+function buildGhostCard() {
    const el = document.createElement('div');
    el.innerText = '+ Add Task';
    el.classList.add('mx-2', 'card', 'ghost-card', 'w-56', 'text-center');
@@ -74,8 +75,8 @@ export default function createAsyncResourceGroup(resourceGroup: AsyncResourceGro
       }
    });
 
-   const emptyC = emptyCard();
-   group.appendChild(emptyC);
+   const ghostCard = buildGhostCard();
+   group.appendChild(ghostCard);
    
    return group;
 }
