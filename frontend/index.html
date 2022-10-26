@@ -6,20 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + TS</title>
   </head>
-  <body class="h-screen bg-base-300">
-    <!-- NAVIGATION -->
-    <div class="navbar bg-neutral text-neutral-content">
-      <div class="navbar-start">
-        <span class="normal-case text-xl">Azure UI</span>
+  <body class="h-screen bg-base-300 drawer">
+    <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+    <div class="drawer-content">
+
+      <!-- NAVIGATION -->
+      <div class="navbar bg-neutral text-neutral-content">
+        <div class="navbar-start">
+          <span class="normal-case text-xl">Azure UI</span>
+        </div>
+
+        <div class="navbar-end">
+          <button id="open-auth-dlg" class="btn btn-outline btn-primary">Set Auth</button>
+        </div>
       </div>
-      
-      <div class="navbar-end">
-        <button id="open-auth-dlg" class="btn btn-outline btn-primary">Set Auth</button>
+
+      <label for="my-drawer" class="btn btn-primary drawer-button">Open drawer</label>
+
+      <!-- MAIN VIEW -->
+      <div id="main-view" class="h-full flex flex-row justify-center gap-2 items-center">
       </div>
     </div>
 
-    <!-- MAIN VIEW -->
-    <div id="main-view" class="h-full flex flex-row justify-center gap-2 items-center">
+    <!-- SIDEBAR DRAWER -->
+    <div class="drawer-side">
+      <label for="my-drawer" class="drawer-overlay"></label>
+      <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+        <!-- Sidebar content here -->
+        <li><a>Sidebar Item 1</a></li>
+        <li><a>Sidebar Item 2</a></li>
+        
+      </ul>
     </div>
 
     <!-- Auth dialog section -->
