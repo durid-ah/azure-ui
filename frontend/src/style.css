@@ -13,15 +13,22 @@
 .group-line {
    border-top-width: 2px;
    border-style: solid;
-   border-color: hsl(var(--nc));
+   border-color: hsl(var(--p));
    width: 100%;
    max-width: 20rem;
    min-width: 1rem;
 }
 
+.ghost-card {
+   border-width: 2px;
+   border-style: dashed;
+   border-color: hsl(var(--p));
+   color: hsl(var(--p));
+}
+
 .select-right, .select-left {
    border-style: solid;
-   border-color: hsl(var(--nc));
+   border-color: hsl(var(--p));
 }
 
 .select-left {
@@ -31,9 +38,3 @@
 .select-right {
    border-right-width: 2px;
 }
-
-
-
-/* TODO: SELECTED GROUP */
-/*    - Right select */
-/*    - Left select */
