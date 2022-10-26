@@ -17,11 +17,12 @@ export default function buildTaskBoard() {
       let el: HTMLDivElement;
       if (item.itemType === ResourceType.Resource) {
          el = createResourceCard(item);
-      } else if (item.itemType === ResourceType.AsyncGroup) {
+      } else {//if (item.itemType === ResourceType.AsyncGroup) {
          el = createAsyncResourceGroup(item);
-      } else {
-         el = createResourceCard(item.tasks[0] as Resource);
-      }
+      } 
+      // else {
+      //    el = createResourceCard(item.tasks[0] as Resource);
+      // }
    
       mainView.appendChild(el);
    

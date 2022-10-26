@@ -9,6 +9,6 @@ export enum ResourceType {
    SequentialGroup
 }
 
-export type ResourceItem = Resource | AsyncResourceGroup | SequentialResourceGroup;
+export type ResourceItem = Resource | AsyncResourceGroup // | SequentialResourceGroup;
 
 export { Resource,  AsyncResourceGroup, SequentialResourceGroup};
