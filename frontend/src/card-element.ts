@@ -8,14 +8,14 @@ function dragStart_handler(ev: DragEvent) {
    ev.dataTransfer!.dropEffect = "move";
 }
 
-export default function createResourceCard(resource: Resource): HTMLDivElement {
+export default function createResourceCard(resource: Resource, dragFunc = dragStart_handler): HTMLDivElement {
    const cardElement = document.createElement('div');
    cardElement.classList.add(...cardClassNames);
    cardElement.setAttribute('draggable', 'true');
    cardElement.dataset.name = resource.name;
    cardElement.id = resource.id;
 
-   cardElement.addEventListener('dragstart', dragStart_handler)
+   cardElement.addEventListener('dragstart', dragFunc);
 
    const nameElement = document.createElement('div');
    nameElement.innerText = resource.name;
