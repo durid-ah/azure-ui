@@ -21,7 +21,9 @@
         </div>
       </div>
 
-      <label for="my-drawer" class="btn btn-primary drawer-button">Open drawer</label>
+      <label for="my-drawer" class="btn btn-circle btn-outline drawer-button border-4 mt-4 ml-4">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="48" d="M256 112v288"></path><path fill="none" stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="48" d="M400 256H112"></path></svg>      
+      </label>
 
       <!-- MAIN VIEW -->
       <div id="main-view" class="h-full flex flex-row justify-center gap-2 items-center">
@@ -31,7 +33,7 @@
     <!-- SIDEBAR DRAWER -->
     <div class="drawer-side">
       <label for="my-drawer" class="drawer-overlay"></label>
-      <ul class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
+      <ul id="side-bar-list" class="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content">
         <!-- Sidebar content here -->
         <li><a>Sidebar Item 1</a></li>
         <li><a>Sidebar Item 2</a></li>
