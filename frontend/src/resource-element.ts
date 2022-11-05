@@ -37,6 +37,7 @@ function drop_handler(this: HTMLDivElement, ev: Event) {
    const droppedCard = document.getElementById(id)!;
    const movedFromGroup = droppedCard.parentElement!;
 
+
    if (this.id !== droppedCard?.parentElement?.id) {
       // TODO: Update task in state
       this.appendChild(droppedCard);
