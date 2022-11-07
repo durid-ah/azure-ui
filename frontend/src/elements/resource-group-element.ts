@@ -1,5 +1,6 @@
 import { AsyncResourceGroup, ResourceType } from "../task-models";
 import TEST_TASKS from "../task-models/test_val";
+import { TaskElement } from "./task-element";
 
 function cleanUpResourceGroup(div: HTMLElement) {
    const divId = div.id;
@@ -63,13 +64,13 @@ function buildGhostCard() {
 export class ResourceGroupElement {
    private groupData: AsyncResourceGroup;
    public element: HTMLDivElement;
+   private taskElements: HTMLDivElement[] = [];
 
    get id(): string {
       return this.element.id;
    }
 
    constructor(resourceGroup: AsyncResourceGroup) {
-      this.groupData = resourceGroup
       const group = document.createElement('div');
       group.classList.add('task-group');
       group.id = resourceGroup.id.toString();
@@ -77,14 +78,20 @@ export class ResourceGroupElement {
       group.addEventListener("drop", drop_handler);
       group.addEventListener("dragover", dragOver_handler);
    
-      resourceGroup.tasks.forEach(item => {
+      resourceGroup?.tasks.forEach(item => {
          if (item.itemType === ResourceType.Resource) {
-            // const el = createResourceCard(item);
-            // group.appendChild(el);
+            // TODO: move into addTask method
+            const el = new TaskElement(item);
+            group.appendChild(el.element);
          }
       });
-   
+
+      this.groupData = resourceGroup;
       const ghostCard = buildGhostCard();
       group.appendChild(ghostCard);
+   }
+
+   public addTask(task: TaskElement) {
+
    }
 }
