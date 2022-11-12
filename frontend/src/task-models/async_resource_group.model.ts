@@ -2,7 +2,7 @@ import { ResourceItem, ResourceType } from ".";
 
 export class AsyncResourceGroup {
    readonly itemType = ResourceType.AsyncGroup;
-   id: number = Math.floor(Math.random() * 1000);
+   id: string = Math.floor(Math.random() * 1000).toString();
 
    public tasks: ResourceItem[];
    
@@ -12,5 +12,9 @@ export class AsyncResourceGroup {
 
    addTask(task: ResourceItem) {
       this.tasks.push(task);
+   }
+
+   removeTask(taskId: string) {
+      this.tasks = this.tasks.filter(t => t.id === taskId);
    }
 }

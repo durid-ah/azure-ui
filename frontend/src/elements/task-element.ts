@@ -6,7 +6,7 @@ const cardClassNames = ['task-card', 'mx-2', 'card', 'card-compact', 'bg-base-10
  * Represents a task on the board
  */
 export class TaskElement {
-   private taskData: Resource;
+   public taskData: Resource;
    public element: HTMLDivElement;
 
    get id(): string {

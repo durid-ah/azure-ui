@@ -64,34 +64,44 @@ function buildGhostCard() {
 export class ResourceGroupElement {
    private groupData: AsyncResourceGroup;
    public element: HTMLDivElement;
-   private taskElements: HTMLDivElement[] = [];
 
    get id(): string {
       return this.element.id;
    }
 
    constructor(resourceGroup: AsyncResourceGroup) {
-      const group = document.createElement('div');
-      group.classList.add('task-group');
-      group.id = resourceGroup.id.toString();
+      const group = document.createElement('div')
+      group.classList.add('task-group')
+      group.id = resourceGroup.id.toString()
    
-      group.addEventListener("drop", drop_handler);
-      group.addEventListener("dragover", dragOver_handler);
+      group.addEventListener("drop", drop_handler)
+      group.addEventListener("dragover", dragOver_handler)
    
       resourceGroup?.tasks.forEach(item => {
          if (item.itemType === ResourceType.Resource) {
             // TODO: move into addTask method
-            const el = new TaskElement(item);
-            group.appendChild(el.element);
+            const el = new TaskElement(item)
+            group.appendChild(el.element)
          }
       });
 
-      this.groupData = resourceGroup;
-      const ghostCard = buildGhostCard();
-      group.appendChild(ghostCard);
+      this.groupData = resourceGroup
+      const ghostCard = buildGhostCard()
+      group.appendChild(ghostCard)
+      this.element = group
    }
 
    public addTask(task: TaskElement) {
+      this.element.appendChild(task.element)
+      this.groupData.addTask(task.taskData)
+   }
 
+   public removeTask(task: TaskElement) {
+      try {
+         this.element.removeChild(task.element);
+         this.groupData.removeTask(task.id);
+      } catch (_) {
+         // ignore DOM not found exception
+      }
    }
 }
