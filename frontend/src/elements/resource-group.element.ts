@@ -1,6 +1,6 @@
 import { AsyncResourceGroup, ResourceType } from "../task-models";
 import TEST_TASKS from "../task-models/test_val";
-import { TaskElement } from "./task-element";
+import { TaskElement } from "./task.element";
 
 function cleanUpResourceGroup(div: HTMLElement) {
    const divId = div.id;
@@ -98,8 +98,8 @@ export class ResourceGroupElement {
 
    public removeTask(task: TaskElement) {
       try {
-         this.element.removeChild(task.element);
-         this.groupData.removeTask(task.id);
+         this.element.removeChild(task.element)
+         this.groupData.removeTask(task.id)
       } catch (_) {
          // ignore DOM not found exception
       }
