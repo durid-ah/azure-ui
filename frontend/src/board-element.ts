@@ -1,6 +1,6 @@
 import createResourceCard from "./card-element";
 import createAsyncResourceGroup from "./resource-element";
-import { Resource, ResourceType } from "./task-models";
+import { ResourceType } from "./task-models";
 import TEST_TASKS from "./task-models/test_val";
 
 const mainView =  document.querySelector<HTMLDivElement>('#main-view')!;

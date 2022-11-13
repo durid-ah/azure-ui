@@ -1,20 +1,35 @@
-import { ResourceItem, ResourceType } from ".";
+import { Subject } from "rxjs";
+import { Resource, ResourceType } from ".";
 
-export class AsyncResourceGroup {
-   readonly itemType = ResourceType.AsyncGroup;
-   id: string = Math.floor(Math.random() * 1000).toString();
+export type TaskMoved = {
+   taskId: string;
+   fromGroupId: string;
+}
 
-   public tasks: ResourceItem[];
+export class ResourceGroup {
+   readonly itemType = ResourceType.AsyncGroup
+
+   id: string = Math.floor(Math.random() * 1000).toString()
    
-   constructor(tasks: ResourceItem[]) {
-      this.tasks = tasks ?? [];
+   taskRemoved$ = new Subject<Resource>()
+   taskAdded$ = new Subject<Resource>()
+
+   public tasks: Resource[]
+   
+   constructor(tasks: Resource[]) {
+      this.tasks = tasks ?? []
    }
 
-   addTask(task: ResourceItem) {
-      this.tasks.push(task);
+   addTask(task: Resource) {
+      this.tasks.push(task)
+      this.taskAdded$.next(task)
    }
 
-   removeTask(taskId: string) {
-      this.tasks = this.tasks.filter(t => t.id === taskId);
+   removeTask(taskId: string): Resource {
+      const task = this.tasks.find(t => t.id === taskId)!
+      this.tasks = this.tasks.filter(t => t.id !== taskId)
+      
+      this.taskRemoved$.next(task)
+      return task
    }
 }

@@ -1,8 +1,8 @@
 import './style.css'
 import './auth-dialog'
-import buildTaskBoard from './board-element';
 import createResourceCard from './card-element';
 import { Resource } from './task-models';
+import './ui-management/actions';
 // import './socket_client'
 
 let taskCount = 10;
@@ -10,7 +10,6 @@ const sideBarToggle = document.getElementById('my-drawer') as HTMLInputElement;
 const drawerButton = document.getElementById('drawer-button');
 
 drawerButton?.addEventListener('click', () => sideBarToggle.click());
-buildTaskBoard();
 
 const card = createResourceCard(
    new Resource('New Task', `task-${taskCount++}`), 

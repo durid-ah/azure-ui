@@ -1,4 +1,4 @@
-import { AsyncResourceGroup } from "./async_resource_group.model";
+import { ResourceGroup } from "./async_resource_group.model";
 import { Resource } from "./resource.model";
 import { SequentialResourceGroup } from "./sequential-resource-group.model";
 
@@ -9,6 +9,6 @@ export enum ResourceType {
    SequentialGroup
 }
 
-export type ResourceItem = Resource | AsyncResourceGroup // | SequentialResourceGroup;
+export type ResourceItem = Resource | ResourceGroup // | SequentialResourceGroup;
 
-export { Resource,  AsyncResourceGroup, SequentialResourceGroup};
+export { Resource,  ResourceGroup as AsyncResourceGroup, SequentialResourceGroup};
