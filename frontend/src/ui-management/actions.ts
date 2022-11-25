@@ -72,6 +72,16 @@ export function addNewTask(task: Resource, targetGroupId: string) {
    to.addTask(task)
 }
 
+export function deleteTask(taskId: string, fromGroupId: string) {
+   const from = groups.find(g => g.id === fromGroupId)?.group
+   if (!from)
+      throw new Error('Invalid deleteTask::fromGroupId')
+
+   const task = from.removeTask(taskId)
+   if (!task)
+      throw new Error('Invalid deleteTask::taskId')
+}
+
 export function moveTask(taskId: string, fromGroupId: string, toGroupId: string) {
    const from = groups.find(g => g.id === fromGroupId)?.group
    if (!from)
@@ -81,7 +91,7 @@ export function moveTask(taskId: string, fromGroupId: string, toGroupId: string)
    if (!to)
       throw new Error('Invalid moveTask::toGroupId')
 
-   const task = from!.removeTask(taskId)
+   const task = from.removeTask(taskId)
    if (!task)
       throw new Error('Invalid moveTask::taskId')
 

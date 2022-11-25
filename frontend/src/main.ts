@@ -2,6 +2,7 @@ import './style.css'
 import './auth-dialog'
 import createResourceCard from './card-element';
 import './ui-management/actions';
+import { deleteTask } from './ui-management/actions';
 // import './socket_client'
 
 let taskCount = 10;
@@ -21,6 +22,24 @@ const card = createResourceCard(
 
 const list = document.getElementById('side-bar-list');
 list?.appendChild(card);
+
+
+function dragOver_handler(ev: Event) {
+   ev.preventDefault();
+   (ev as DragEvent).dataTransfer!.dropEffect = "move";
+}
+
+const deleteButton = document.getElementById('delete-task')!
+deleteButton.addEventListener('dragover', dragOver_handler)
+deleteButton.addEventListener('drop', (ev) => {
+   ev.preventDefault();
+   const id = ev.dataTransfer?.getData('text/id')!
+   const fromId = ev.dataTransfer?.getData('text/parent-id')!
+
+   if (!fromId) return
+
+   deleteTask(id, fromId)
+})
 
 // import typescriptLogo from './typescript.svg'
 // import { setupCounter } from './counter'

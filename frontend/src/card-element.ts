@@ -11,7 +11,6 @@ export default function createResourceCard(id: string, dragFunc = dragStart_hand
    const cardElement = document.createElement('div');
    cardElement.classList.add(...cardClassNames);
    cardElement.setAttribute('draggable', 'true');
-   // cardElement.dataset.name = 'New Task'
    cardElement.id = id;
 
    cardElement.addEventListener('dragstart', dragFunc);
