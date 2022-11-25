@@ -1,5 +1,5 @@
 import { Subscription } from "rxjs";
-import { ResourceType } from "../task-models";
+import { Resource, ResourceType } from "../task-models";
 import { ResourceGroup } from "../task-models/async_resource_group.model";
 import TEST_TASKS from "../task-models/test_val";
 import { ResourceGroupElement } from "./resource-group.element";
@@ -63,7 +63,15 @@ TEST_TASKS.tasks.forEach((group, idx) => {
 
    groups.push(info)
 });
+
+export function addNewTask(task: Resource, targetGroupId: string) {
+   const to = groups.find(g => g.id === targetGroupId)?.group
+   if (!to)
+      throw new Error('Invalid addNewTask::targetGroupId')
    
+   to.addTask(task)
+}
+
 export function moveTask(taskId: string, fromGroupId: string, toGroupId: string) {
    const from = groups.find(g => g.id === fromGroupId)?.group
    if (!from)
@@ -77,7 +85,7 @@ export function moveTask(taskId: string, fromGroupId: string, toGroupId: string)
    if (!task)
       throw new Error('Invalid moveTask::taskId')
 
-   to!.addTask(task!)
+   to.addTask(task!)
 }
 
 function unsubscribeAll(subscriptions: Subscription[]) {

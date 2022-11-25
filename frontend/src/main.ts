@@ -1,7 +1,6 @@
 import './style.css'
 import './auth-dialog'
 import createResourceCard from './card-element';
-import { Resource } from './task-models';
 import './ui-management/actions';
 // import './socket_client'
 
@@ -12,10 +11,10 @@ const drawerButton = document.getElementById('drawer-button');
 drawerButton?.addEventListener('click', () => sideBarToggle.click());
 
 const card = createResourceCard(
-   new Resource('New Task', `task-${taskCount++}`), 
+   `task-${taskCount}`, 
    (ev) => {
-      const targetEl = (ev.target as HTMLDivElement);
-      ev.dataTransfer?.setData('text/plain', targetEl.id)
+      ev.dataTransfer?.setData('text/id', `task-${taskCount++}`)
+      ev.dataTransfer?.setData('text/name', `Task Item ${taskCount}`)
       ev.dataTransfer!.dropEffect = "copy";
       sideBarToggle.click();
    });

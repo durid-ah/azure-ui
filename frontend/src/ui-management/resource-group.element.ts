@@ -1,5 +1,5 @@
 import { AsyncResourceGroup, Resource, ResourceType } from "../task-models";
-import { moveTask } from "./actions";
+import { addNewTask, moveTask } from "./actions";
 import { TaskElement } from "./task.element";
 
 function dragOver_handler(ev: Event) {
@@ -64,7 +64,10 @@ export class ResourceGroupElement {
       const id = ev.dataTransfer?.getData('text/id')!
       const fromId = ev.dataTransfer?.getData('text/parent-id')!
 
-      if (this.element.id !== fromId) {
+      if (!fromId) {
+         const name = ev.dataTransfer?.getData('text/name')!
+         addNewTask(new Resource(name, id), this.id)
+      } else if (this.element.id !== fromId) {
          moveTask(id, fromId, this.id)
       }
 
