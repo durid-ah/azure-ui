@@ -34,15 +34,15 @@ TEST_TASKS.tasks.forEach((group, idx) => {
       subscriptions: []
    }
 
-   // update UI when a task is removed from the group
+   // Update UI when a task is removed from the group
    let s = group.taskRemoved$.subscribe(resource => {
       if (group.tasks.length === 0)
-         cleanUpResourceGroup(groupEl.element)
+         cleanUpResourceGroup(info)
       else 
          groupEl.removeTask(resource.id)
    })
 
-   // update UI when a task is dropped into the group
+   // Update UI when a task is dropped into the group
    s = group.taskAdded$
       .subscribe((task) => groupEl.addTask(task))
 
@@ -80,10 +80,15 @@ export function moveTask(taskId: string, fromGroupId: string, toGroupId: string)
    to!.addTask(task!)
 }
 
-function cleanUpResourceGroup(groupElement: HTMLElement) {
-   const divId = groupElement.id;
+function unsubscribeAll(subscriptions: Subscription[]) {
+   subscriptions.forEach(s => s.unsubscribe())
+}
+
+function cleanUpResourceGroup(info: GroupInfo) {
+   const groupElement = info.groupElement.element;
+   
    // Get the group item's index in state
-   const idx = groups.findIndex(t => t.id.toString() === divId);
+   const idx = groups.findIndex(t => t.id.toString() === info.id);
    const lastIdx = groups.length - 1;
 
    if (idx === 0) {
@@ -98,5 +103,6 @@ function cleanUpResourceGroup(groupElement: HTMLElement) {
 
    groupElement.remove();
    groups = groups
-      .filter(t => t.id.toString() !== divId);
+      .filter(t => t.id.toString() !== info.id);
+   unsubscribeAll(info.subscriptions)
 }
