@@ -17,7 +17,7 @@ function createGroupLine(): HTMLDivElement {
    return el
 }
 
-const element = document.getElementById('main-test') as HTMLDivElement 
+const element = document.getElementById('main-view') as HTMLDivElement 
 let groups: GroupInfo[] = []
 
 // work this out
@@ -34,14 +34,15 @@ TEST_TASKS.tasks.forEach((group, idx) => {
       subscriptions: []
    }
 
-   let s = group.taskRemoved$.subscribe(() => {
-      if (group.tasks.length === 0) {
+   // update UI when a task is removed from the group
+   let s = group.taskRemoved$.subscribe(resource => {
+      if (group.tasks.length === 0)
          cleanUpResourceGroup(groupEl.element)
-      } else {
-         // TODO: remove node from tree
-      }
+      else 
+         groupEl.removeTask(resource.id)
    })
 
+   // update UI when a task is dropped into the group
    s = group.taskAdded$
       .subscribe((task) => groupEl.addTask(task))
 
@@ -65,15 +66,15 @@ TEST_TASKS.tasks.forEach((group, idx) => {
    
 export function moveTask(taskId: string, fromGroupId: string, toGroupId: string) {
    const from = groups.find(g => g.id === fromGroupId)?.group
-   if (from === null)
+   if (!from)
       throw new Error('Invalid moveTask::fromGroupId')
    
    const to = groups.find(g => g.id === toGroupId)?.group
-   if (to === null)
+   if (!to)
       throw new Error('Invalid moveTask::toGroupId')
 
    const task = from!.removeTask(taskId)
-   if (task === null)
+   if (!task)
       throw new Error('Invalid moveTask::taskId')
 
    to!.addTask(task!)

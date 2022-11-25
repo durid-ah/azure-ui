@@ -1,5 +1,5 @@
-import { moveTask } from "../state";
 import { AsyncResourceGroup, Resource, ResourceType } from "../task-models";
+import { moveTask } from "./actions";
 import { TaskElement } from "./task.element";
 
 function dragOver_handler(ev: Event) {
@@ -48,11 +48,13 @@ export class ResourceGroupElement {
       this.tasks.push(taskEl)
    }
 
-   public removeTask(task: TaskElement) {
-      this.element.removeChild(task.element)
+   public removeTask(id: string) {
+      const toRemove = this.tasks.find(t => t.id === id)!
+      this.element.removeChild(toRemove.element)
+      this.tasks = this.tasks.filter(t => t.id !== id)
    }
 
-   // move ghost card to the bottom of the group
+   /** move ghost card to the bottom of the group */
    private _updateGhostCard() {
       this.element.appendChild(this.ghostCard)
    }
